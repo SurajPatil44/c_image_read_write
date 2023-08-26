@@ -2,9 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdbool.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "image_utils.c"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
@@ -85,6 +83,8 @@ ArgErr read_args(int argc,char* argv[],SV *args,SV *ext_found){
    return no_error;
 }
 
+
+
 int main(int argc,char* argv[]) {
     SV args[2]; 
     SV ext;
@@ -92,9 +92,21 @@ int main(int argc,char* argv[]) {
     int result = EXIT_SUCCESS;
     switch(res){
         case(no_error): 
-            printf("args : "SV_Fmt"\n",SV_arg(args[0]));        
-            assert(false && "not implemented");
-            break;
+            {
+                //
+                //my_image rgb_image; this introduces memory leaks
+                //
+                //
+                //
+                my_image *rgb_image = new_image();
+                char *path = argv[1];
+                if(load_image_from_path(path,rgb_image) != 0) {
+                    res = EXIT_FAILURE;
+                }
+                (void) process_image(rgb_image); 
+                free_image(rgb_image);
+                break;
+            }
         case(first_arg_missing) :
             printf("filename is missing\n");
             res = EXIT_FAILURE;
