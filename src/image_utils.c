@@ -33,10 +33,28 @@ int load_image_from_path(const char* path,my_image *image) {
     return 0;
 }
 
+static unsigned char transform(unsigned char *buf,int sz){
+    float res = 0;
+    (void) sz;
+    for(int i = 0;i < 3;i++){
+      //printf("%d ",(int) buf[i]);
+      res += (float) buf[i];
+    }
+    //(void) sz;
+    return (unsigned char) (res / 3.0);
+ }
 
-int process_image(my_image *image) {
+int makebw(const my_image *src,my_image *dst) {
 
-    printf("%d and %d \n",image->width,image->height);
+    //printf("%d and %d \n",dst->width,dst->height);
+    dst->width = src->width;
+    dst->height = src->height;
+    dst->channel = 1;
+    dst->buf = (unsigned char *) malloc(dst->width * dst->height * dst->channel);
+    for(int i = 0;i < src->width * src->height * src->channel; i += src->channel){
+        dst->buf[i / src->channel] = transform(src->buf + i,src->channel);
+    }
+
     return 0;
 }
 
