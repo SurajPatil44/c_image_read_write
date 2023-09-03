@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include "image_utils.c"
 
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
 
 #define SV_Fmt "%.*s"
 #define SV_arg(sv) (int) (sv).len, (sv).buf
@@ -86,7 +84,7 @@ ArgErr read_args(int argc,char* argv[],SV *args,SV *ext_found){
 int process_and_save(my_image *src) {
 
     my_image *dst = new_image();
-    int res = makebw(src,dst);
+    int res = makebw(src,dst,src->channel,transform_3_to_3);
     //(void) res;
     if (res != 0) {
         printf("report failure \n");
