@@ -71,7 +71,7 @@ int makebw(const my_image *src,my_image *dst,int channel,void (*f)(const uint8_t
     dst->channel = channel;
     dst->buf = (uint8_t *) malloc(dst->width * dst->height * dst->channel);
     if(dst->buf == NULL){
-        assert(false && "failed memory alloc");
+        assert(0 && "failed memory alloc");
         return 1;
     }
     float mplier[] = {0.299,.587,.114};
