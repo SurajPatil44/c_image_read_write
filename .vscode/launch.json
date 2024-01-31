@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug",
+      "program": "${workspaceFolder}/main",
+      "args": [
+        "arg.png"
+      ],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/surajpatil/codes/c_cpp/images/src",
+      "program": "/Users/surajpatil/codes/c_cpp/images/src/build/Debug/outDebug"
+    }
+  ]
+}
